@@ -1,0 +1,14 @@
+name: esm
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - gnuradio
+  - numpy
+  - scipy
+  - matplotlib
+  - pytest
+  - pip
+  - pip:
+      - sigmf
+      - ruff

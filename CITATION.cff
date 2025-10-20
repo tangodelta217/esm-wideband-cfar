@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+title: esm-wideband-cfar
+message: If you use this project, please cite it as described here.
+type: software
+authors:
+  - name: ESM Wideband CFAR Team
+abstract: >
+  Reference implementation of wideband Cell-Averaging CFAR workflows for Electronic Support Measures, including Python analytics, GNU Radio blocks, and SigMF tooling.
+repository-code: https://github.com/your-org/esm-wideband-cfar
+keywords:
+  - CFAR
+  - Electronic Warfare
+  - GNU Radio
+  - SigMF
+license: MIT
+version: 0.1.0
+date-released: 2024-01-01

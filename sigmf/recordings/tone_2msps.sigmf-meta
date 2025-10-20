@@ -1,0 +1,16 @@
+{
+  "global": {
+    "core:datatype": "cf32_le",
+    "core:sample_rate": 2000000.0,
+    "core:version": "1.2.0",
+    "core:description": "Tone plus AWGN example for esm-wideband-cfar."
+  },
+  "captures": [
+    {
+      "core:sample_start": 0,
+      "core:frequency": 100000000.0,
+      "core:datetime": "2025-10-19T23:04:09.736678+00:00"
+    }
+  ],
+  "annotations": []
+}

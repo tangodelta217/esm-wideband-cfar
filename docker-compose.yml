@@ -1,0 +1,10 @@
+# docker-compose.yml
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /app
+    command: python -m eval.evaluate_cfar
+    volumes:
+      - .:/app

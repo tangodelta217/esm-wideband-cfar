@@ -1,0 +1,36 @@
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+.venv/
+.env
+__pycache__/
+*.py[cod]
+*.so
+*.dylib
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Large data artifacts
+data/**
+!data/README.md
+datasets/**
+!datasets/README.md
+logs/
+results/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# VS Code
+.history/
+.python-version
+

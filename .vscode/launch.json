@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Evaluate CFAR",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/eval/evaluate_cfar.py",
+            "console": "integratedTerminal",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}/src"
+            },
+            "justMyCode": true
+        }
+    ]
+}
+

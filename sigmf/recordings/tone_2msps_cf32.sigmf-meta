@@ -1,0 +1,17 @@
+{
+    "global": {
+        "core:datatype": "cf32_le",
+        "core:description": "ESM wideband + CFAR detections",
+        "core:num_channels": 1,
+        "core:sample_rate": 2000000.0,
+        "core:sha512": "ce7f323c4a6750c277729fbc1e145a84eff2d4fff32b1ea6b680c5afbb0f1759e9b1771625e87bd7d3a86ade57fa9f6d8df23325d881bc46980a5bd542e40fac",
+        "core:version": "1.0.0"
+    },
+    "captures": [
+        {
+            "core:frequency": 100000000.0,
+            "core:sample_start": 0
+        }
+    ],
+    "annotations": []
+}

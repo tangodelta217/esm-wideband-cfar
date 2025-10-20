@@ -1,0 +1,17 @@
+{
+    // Conda environment "esm" expected at ${workspaceFolder}/.conda/envs/esm
+    "python.defaultInterpreterPath": "${workspaceFolder}/.conda/envs/esm/bin/python",
+    "python.testing.pytestEnabled": true,
+    "python.testing.pytestArgs": [
+        "tests"
+    ],
+    "python.analysis.typeCheckingMode": "basic",
+    "python.formatting.provider": "black",
+    "[python]": {
+        "editor.formatOnSave": true
+    },
+    "ruff.organizeImports": true,
+    "ruff.lint.run": "onSave",
+    "ruff.format.enable": false
+}
+

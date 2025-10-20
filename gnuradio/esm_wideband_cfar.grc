@@ -1,0 +1,59 @@
+# Flow Option 1 – Offline CF32 Playback with CA-CFAR Overlay
+- options (id: `options`, title: `ESM Wideband CFAR – File Playback`, generate_options: `qt_gui`, id: `offline`)
+- variable (id: `samp_rate`, value: `2e6`)
+- variable (id: `center_freq`, value: `915e6`)
+- variable (id: `fft_len`, value: `1024`)
+- variable (id: `num_train`, value: `16`)
+- variable (id: `num_guard`, value: `4`)
+- variable (id: `pfa`, value: `1e-3`)
+- file_source (id: `file_source_cf32`, file: `data/iq_examples/tone_2msps_cf32.iq`, repeat: `False`, type: `complex`)
+- stream_to_vector (id: `stov`, num_items: `fft_len`)
+- head (id: `head_vectors`, items: `fft_len`, nitems: `200`)
+- blocks_vector_source_x (id: `window_taps`, type: `complex`, vector: `window.blackmanharris(fft_len)`, repeat: `True`)
+- blocks_multiply_xx (id: `win_mul`, type: `complex`, vlen: `fft_len`)
+- fft_vxx (id: `fft`, type: `complex`, fft_size: `fft_len`, forward: `True`, shift: `True`, window: `[]`)
+- blocks_complex_to_mag_squared (id: `mag2`, vlen: `fft_len`)
+- esm_cfar1d_block (Python block) (id: `cfar`, module: `src.gr_blocks.cfar1d_block`, class: `ca_cfar_1d_block`, parameters: `vector_len=fft_len`, `num_train=num_train`, `num_guard=num_guard`, `pfa=pfa`)
+- blocks_vector_sink_x (id: `thr_sink`, type: `float`, vlen: `fft_len`)
+- blocks_vector_sink_x (id: `det_sink`, type: `float`, vlen: `fft_len`)
+- qtgui_vector_sink_f (id: `spec_view`, vlen: `fft_len`, update_time: `0.10`, xmin: `0`, xmax: `fft_len`, ymin: `0`, ymax: `Auto`, name: `Magnitude^2`, autoscale: `True`)
+- connections:
+  - `file_source_cf32` → `stov`
+  - `stov` → `head_vectors`
+  - `head_vectors` → `win_mul`[0]
+  - `window_taps` → `win_mul`[1]
+  - `win_mul` → `fft`
+  - `fft` → `mag2`
+  - `mag2` → `spec_view`
+  - `mag2` → `cfar`
+  - `cfar`[0] → `thr_sink`
+  - `cfar`[1] → `det_sink`
+
+# Flow Option 2 – Live USRP Stream with Real-Time CFAR Monitoring
+- options (id: `options`, title: `ESM Wideband CFAR – Live`, generate_options: `qt_gui`, id: `live`)
+- variable (id: `samp_rate`, value: `5e6`)
+- variable (id: `center_freq`, value: `2.45e9`)
+- variable (id: `fft_len`, value: `2048`)
+- variable (id: `num_train`, value: `24`)
+- variable (id: `num_guard`, value: `6`)
+- variable (id: `pfa`, value: `1e-4`)
+- uhd_usrp_source (id: `usrp_src`, stream_args: `fc32`, center_freq: `center_freq`, gain: `40`, sample_rate: `samp_rate`)
+- stream_to_vector (id: `stov_live`, num_items: `fft_len`)
+- blocks_vector_source_x (id: `window_taps_live`, type: `complex`, vector: `window.blackmanharris(fft_len)`, repeat: `True`)
+- blocks_multiply_xx (id: `win_mul_live`, type: `complex`, vlen: `fft_len`)
+- fft_vxx (id: `fft_live`, type: `complex`, fft_size: `fft_len`, forward: `True`, shift: `True`, window: `[]`)
+- blocks_complex_to_mag_squared (id: `mag2_live`, vlen: `fft_len`)
+- esm_cfar1d_block (Python block) (id: `cfar_live`, module: `src.gr_blocks.cfar1d_block`, class: `ca_cfar_1d_block`, parameters: `vector_len=fft_len`, `num_train=num_train`, `num_guard=num_guard`, `pfa=pfa`)
+- qtgui_vector_sink_f (id: `fft_display`, vlen: `fft_len`, update_time: `0.05`, xmin: `-samp_rate/2`, xmax: `samp_rate/2`, ymin: `0`, ymax: `Auto`, name: `Live Spectrum`, autoscale: `True`)
+- qtgui_vector_sink_f (id: `thr_display`, vlen: `fft_len`, update_time: `0.05`, xmin: `-samp_rate/2`, xmax: `samp_rate/2`, ymin: `0`, ymax: `Auto`, name: `CFAR Threshold`, autoscale: `True`)
+- qtgui_vector_sink_f (id: `det_display`, vlen: `fft_len`, update_time: `0.05`, xmin: `-samp_rate/2`, xmax: `samp_rate/2`, ymin: `0`, ymax: `1.2`, name: `Detections`, autoscale: `False`)
+- connections:
+  - `usrp_src` → `stov_live`
+  - `stov_live` → `win_mul_live`[0]
+  - `window_taps_live` → `win_mul_live`[1]
+  - `win_mul_live` → `fft_live`
+  - `fft_live` → `mag2_live`
+  - `mag2_live` → `fft_display`
+  - `mag2_live` → `cfar_live`
+  - `cfar_live`[0] → `thr_display`
+  - `cfar_live`[1] → `det_display`
