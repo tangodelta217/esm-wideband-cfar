@@ -34,3 +34,11 @@ results/
 .history/
 .python-version
 
+
+# big binaries
+sigmf/recordings/*
+!sigmf/recordings/.gitkeep
+data/*
+!data/iq_examples/
+data/iq_examples/*.iq
+data/iq_examples/*.sigmf-data
