@@ -17,7 +17,7 @@ Sigue estos pasos para tener el proyecto funcionando.
 
 **1. Clonar el Repositorio**
 ```bash
-git clone https://github.com/tangodelta/esm-wideband-cfar.git
+git clone https://github.com/tangodelta217/esm-wideband-cfar.git
 cd esm-wideband-cfar
 ```
 
